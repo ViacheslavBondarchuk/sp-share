@@ -1,0 +1,46 @@
+<!-- Default form login -->
+<form class="text-center border border-light p-5" [formGroup]="form" (ngSubmit)="submit()">
+
+  <p class="h4 mb-4">Sign up</p>
+
+  <input type="text" id="defaultLoginFormUsername" name="username" class="form-control mb-4" placeholder="Username">
+
+  <!-- Email -->
+  <input type="email" [formControl]="email" id="defaultLoginFormEmail" name="email" class="form-control mb-4" placeholder="E-mail">
+
+  <!-- Password -->
+  <input type="password" [formControl]="password" id="defaultLoginFormPassword" name="password" class="form-control mb-4" placeholder="Password">
+
+  <input type="text" id="defaultLoginFormFirstName" name="firstName" class="form-control mb-4" placeholder="First name">
+
+  <input type="text" id="defaultLoginFormLastName" name="lastName" class="form-control mb-4" placeholder="Last name">
+
+  <!-- Phone-->
+  <input type="tel" [formControl]="phone" id="defaultLoginFormPhone" name="phone" class="form-control mb-4" placeholder="Phone">
+
+  <!-- Sign in button -->
+  <button type="submit" mdbBtn color="black" block="true" class="my-4">Submit</button>
+
+  <!-- Register -->
+  <p>Already exists account?
+    <a routerLink="/login">Sign in</a>
+  </p>
+
+  <!-- Social login -->
+  <p>or sign in with:</p>
+
+  <a type="button" class="light-blue-text mx-2">
+    <mdb-icon fab icon="facebook"></mdb-icon>
+  </a>
+  <a type="button" class="light-blue-text mx-2">
+    <mdb-icon fab icon="twitter"></mdb-icon>
+  </a>
+  <a type="button" class="light-blue-text mx-2">
+    <mdb-icon fab icon="linkedin"></mdb-icon>
+  </a>
+  <a type="button" class="light-blue-text mx-2">
+    <mdb-icon fab icon="github"></mdb-icon>
+  </a>
+
+</form>
+<!-- Default form login -->
