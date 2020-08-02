@@ -14,8 +14,11 @@ export class RegistrationComponent implements OnInit {
 
   constructor(private httpClient: HttpClient) {
     this.formGroup = new FormGroup({
+      username: new FormControl('', {validators: [Validators.required, Validators.minLength(4)]}),
       email: new FormControl('', {validators: [Validators.required, Validators.email]}),
       password: new FormControl('', {validators: [Validators.required, Validators.minLength(6)]}),
+      firstName: new FormControl('', {validators: [Validators.required, Validators.maxLength(50)]}),
+      lastName: new FormControl('', {validators: [Validators.required, Validators.maxLength(50)]}),
       phone: new FormControl('', {validators: [Validators.required, Validators.maxLength(20)]})
     });
   }
@@ -57,12 +60,27 @@ export class RegistrationComponent implements OnInit {
   public get form() {
     return this.formGroup;
   }
+
+  public get username() {
+    return this.formGroup.get('username');
+  }
+
   public get email() {
     return this.formGroup.get('email');
   }
+
   public get password() {
     return this.formGroup.get('password');
   }
+
+  public get firstName() {
+    return this.formGroup.get('firstName');
+  }
+
+  public get lastName() {
+    return this.formGroup.get('lastName');
+  }
+
   public get phone() {
     return this.formGroup.get('phone');
   }
