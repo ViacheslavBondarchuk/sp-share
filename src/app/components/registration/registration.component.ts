@@ -1,6 +1,7 @@
 import {Component, Injectable, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {HttpClient} from '@angular/common/http';
+import {UserService} from '../../service/impl/user.service';
+import {User} from '../../model/user';
 
 @Component({
   selector: 'app-registration',
@@ -10,9 +11,9 @@ import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class RegistrationComponent implements OnInit {
-  private formGroup: FormGroup;
+  private readonly formGroup: FormGroup;
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private userService: UserService) {
     this.formGroup = new FormGroup({
       username: new FormControl('', {validators: [Validators.required, Validators.minLength(4)]}),
       email: new FormControl('', {validators: [Validators.required, Validators.email]}),
@@ -42,18 +43,22 @@ export class RegistrationComponent implements OnInit {
     return isValid;
   }
 
+  private makeUser(formGroup: FormGroup): User {
+    if (formGroup) {
+      const user: User = {};
+      Object.keys(formGroup.controls).forEach(field => {
+        user[field] = formGroup.get(field).value;
+      });
+      return user;
+    }
+    return null;
+  }
+
   public submit(): void {
     if (this.validateAllFormFields(this.formGroup)) {
-      this.httpClient.post('http://localhost:8080/spplatform/api/users', {
-        username: 'user',
-        email: 'slava.777.bondarchuk@outlook.com',
-        password: 'user',
-        phone: '12345678'
-      }, {
-        headers: {
-          'Access-Control-Allow-Origin': '*'
-        }
-      }).subscribe(text => console.log(text), error => console.error(error.message));
+      this.userService.create(this.makeUser(this.formGroup), (users) => {
+        console.log(users);
+      });
     }
   }
 
